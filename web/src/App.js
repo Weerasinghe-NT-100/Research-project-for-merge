@@ -2,8 +2,7 @@ import './App.css';
 import { Box } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { NavigationBar,TimelineAnimation } from './Component';
-import { Presentations,Documents } from './Pages';
-import {image} from './Web-photos/Colombo-sri-lanka.jpg'
+import { Presentations,Documents,DomainPage } from './Pages';
 
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
             <Route path="/Presentations" element={<Presentations/>} />
             <Route path="/Documents" element={<Documents/>} />
             <Route path="/TimelineAnimation" element={<TimelineAnimation/>} />
+            <Route path="/DomainPage" element={<DomainPage/>} />
           </Routes>
             </Box>
           </Box>

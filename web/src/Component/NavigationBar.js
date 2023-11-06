@@ -25,7 +25,7 @@ const NavigationBar = () => {
             </Button>
           </Link>
 
-          <Link to="/">
+          <Link to="/DomainPage">
             <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: '#3c3c3c' }}>
               <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
                 Domain
