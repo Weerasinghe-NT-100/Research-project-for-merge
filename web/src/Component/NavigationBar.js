@@ -56,6 +56,14 @@ const NavigationBar = () => {
               </Typography>
             </Button>
           </Link>
+
+          <Link to="/AboutUs">
+            <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '200px', color: 'white', backgroundColor: '#3c3c3c' }}>
+              <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
+                About Us
+              </Typography>
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
