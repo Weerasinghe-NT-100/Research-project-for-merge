@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
+import logIcon from '../Web-photos/Sys-logo.png'
 
 const NavigationBar = () => {
   const location = useLocation();
@@ -16,27 +17,13 @@ const NavigationBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#3c3c3c', boxShadow: '0px 2px 4px rgba(0, 1, 0, 0.1)', transform: 'translateZ(0)', maxHeight: '60px' }}>
         <Toolbar>
+          <img src={logIcon} width="100px" height="60px" style={{ borderRadius:'8px 8px 0 0' }} />
+
           <Link to="/">
             <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: isHome ? 'black' : '#3c3c3c' }}>
               <HomeIcon sx={{ marginRight: 1, color: 'white', fontSize: 20 }} />
               <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
                 Home
-              </Typography>
-            </Button>
-          </Link>
-
-          <Link to="/DomainPage">
-            <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: '#3c3c3c' }}>
-              <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
-                Domain
-              </Typography>
-            </Button>
-          </Link>
-
-          <Link to="/TimelineAnimation">
-            <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: '#3c3c3c' }}>
-              <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
-                Milestones
               </Typography>
             </Button>
           </Link>

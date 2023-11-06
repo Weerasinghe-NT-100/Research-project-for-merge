@@ -65,8 +65,11 @@ function Presentations() {
   
   return(
     <>
-      <Box sx={{ width:'97%',height:'auto',m:2, textAlign:'justify' }}>
-        <Typography sx={{ fontSize:'16px' }}>Welcome to our Past Project Presentations and Milestones page! This page serves as a comprehensive archive of our previous projects, highlighting key milestones achieved throughout their development.
+      <Box sx={{ width:'97%',height:'auto',m:1 }}>
+        <Typography variant='h4' sx={{ fontWeight:'bold',color:'rgb(43, 43, 111)' }}>Past Presentations</Typography>
+      </Box>
+      <Box sx={{ width:'97%',height:'auto',m:1, textAlign:'justify' }}>
+        <Typography sx={{ fontSize:'16px',fontWeight:'bold' }}>Welcome to our Past Project Presentations and Milestones page! This page serves as a comprehensive archive of our previous projects, highlighting key milestones achieved throughout their development.
           Our goal is to provide you with valuable insights into our project journey, showcasing the significant achievements, challenges overcome, and the continuous improvement of our work. 
           By revisiting our past project presentations, you can gain a deeper understanding of our commitment to excellence and innovation.</Typography>
       </Box>

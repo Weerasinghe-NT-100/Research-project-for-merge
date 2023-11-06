@@ -201,8 +201,11 @@ function Documents() {
   
   return(
     <>
-      <Box sx={{ width:'97%',height:'auto',m:2, textAlign:'justify' }}>
-        <Typography sx={{ fontSize:'16px' }}>Welcome to our Project Documents Portal. This page serves as a central hub for all project-related documents, providing you with easy access to key project artifacts. Whether you're a project team member, stakeholder, or interested party, you'll find essential documents such as the Project Charter, Project Proposals, Status Updates, and Final Reports readily available for your reference.</Typography>
+      <Box sx={{ width:'97%',height:'auto',m:1 }}>
+        <Typography variant='h4' sx={{ fontWeight:'bold',color:'rgb(43, 43, 111)' }}>Documents</Typography>
+      </Box>
+      <Box sx={{ width:'97%',height:'auto',m:1, textAlign:'justify' }}>
+        <Typography sx={{ fontSize:'16px',fontWeight:'bold' }}>Welcome to our Project Documents Portal. This page serves as a central hub for all project-related documents, providing you with easy access to key project artifacts. Whether you're a project team member, stakeholder, or interested party, you'll find essential documents such as the Project Charter, Project Proposals, Status Updates, and Final Reports readily available for your reference.</Typography>
       </Box>
       <Box m={1}>
         <Typography variant="h6" style={{ fontFamily: 'Roboto, sans-serif', color:'#5c0001', textAlign:'justify' }}>Project Charter</Typography>
