@@ -18,7 +18,7 @@ const NavigationBar = () => {
         <Toolbar>
           <Link to="/">
             <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: isHome ? 'black' : '#3c3c3c' }}>
-              <HomeIcon sx={{ marginRight: 1, color: isHome ? 'white' : 'black', fontSize: 20 }} />
+              <HomeIcon sx={{ marginRight: 1, color: 'white', fontSize: 20 }} />
               <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
                 Home
               </Typography>
@@ -33,7 +33,7 @@ const NavigationBar = () => {
             </Button>
           </Link>
 
-          <Link to="/">
+          <Link to="/TimelineAnimation">
             <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: '#3c3c3c' }}>
               <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
                 Milestones
@@ -41,7 +41,7 @@ const NavigationBar = () => {
             </Button>
           </Link>
 
-          <Link to="/">
+          <Link to="/Documents">
             <Button color="inherit" sx={{ display: 'flex', alignItems: 'center', height: '56px', width: '100px', color: 'white', backgroundColor: '#3c3c3c' }}>
               <Typography fontSize="13px" sx={{ fontWeight: 'semi-bold' }}>
                 Documents

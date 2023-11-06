@@ -1,81 +1,138 @@
-import React,{useState,useEffect} from 'react';
-import axios from 'axios';
-import { Document,Page } from 'react-pdf';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useRef } from "react";
 
-function MarkingSchemfiles() {
+let halfScreenHeight;
+if (typeof window !== "undefined") {
+  halfScreenHeight = window?.innerHeight / 2;
+}
 
-  const {id}=useParams("");
-  const[TopicList,setTopiclist]=useState([]);
+const options = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.2,
+};
 
-  const [numPages, setNumPages] = useState(null);
+function setObservable({ obs, observableList, callbacks }) {
+  const obsId = obs?.target?.id;
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
-  var arr;
-  var res;
-  var res1;
-  
-  useEffect(()=>{
-
-    function getMovies(){
-      axios.get(`http://localhost:8071/markingScheme/get/${id}`).then((res)=>{
-        setTopiclist(res.data);
-      }).catch((err)=>{
-        alert(err.message);
-      })
-    }
-    getMovies();
-
-     },[]);
-
-     var viewItems_HTMLTABLE="";
-
-     if (!Array.isArray(TopicList)) {
-
-    arr=Object.entries(TopicList);
-    res=Object.values(arr);
-    res1=Object.values(res[1]);
-    console.log(res1[1]);
-
-    viewItems_HTMLTABLE=
-      res1.map((data)=>{
-        
-
-      return(
-        <Row key={data._id}>
-            <Col>{data._id}</Col>
-          </Row>
-      );
-        
+  if (!observableList.has(obsId)) {
+    observableList.set(obsId, {
+      observable: obs,
+      isPassed: false,
+      callbackFn: callbacks[obsId] || null,
     });
-
   }
+}
 
-  else
-  viewItems_HTMLTABLE="loading"
-  
+function removeObservable({ obs, observableList }) {
+  const obsName = obs?.target?.id;
 
-
-return (
- <> 
-
-<div className="images4">
-
-<Table className="images3">
-
- {viewItems_HTMLTABLE}
-
-  </Table>
- 
-</div>
-
- <div className="lines1"></div>
- </>
-    );
+  if (observableList.has(obsName)) {
+    observableList.set(obsName, {
+      ...observableList.get(obsName),
+      isPassed: true,
+    });
   }
+}
 
+function colorize({ observableList, initialColor, fillColor, hasReverse }) {
+  observableList.forEach((observable) => {
+    if (!observable.isPassed) {
+      const rect = observable.observable.target.getBoundingClientRect();
+      const entry = observable?.observable;
 
-export default MarkingSchemfiles;
+      if (rect.bottom > halfScreenHeight && rect.top < halfScreenHeight) {
+        if (initialColor && fillColor) {
+          const depthPx = rect.bottom - halfScreenHeight;
+          const depthPercent = (depthPx * 100) / rect.height;
+          entry.target.style.background = `linear-gradient(to top, ${initialColor} ${depthPercent}%, ${fillColor} ${depthPercent}% 100%)`;
+          entry.target.style.transform = "translateZ(0)";
+        }
+      }
+
+      if (rect.bottom < halfScreenHeight) {
+        if (initialColor && fillColor) {
+          entry.target.style.background = fillColor;
+          entry.target.style.transform = "unset";
+        }
+
+        if (observable?.callbackFn) {
+          if (!observable?.callbackFired) {
+            observable?.callbackFn();
+
+            observable.callbackFired = true;
+          }
+        }
+
+        if (!hasReverse) {
+          removeObservable({
+            obs: entry,
+            observableList,
+          });
+        }
+      }
+
+      if (rect.top > halfScreenHeight && hasReverse) {
+        entry.target.style.background = initialColor;
+      }
+    }
+  });
+}
+
+const Milestone = ({
+  handleObserve,
+  initialColor,
+  fillColor,
+  hasReverse,
+}) => {
+  const observablesStore = useRef(new Map());
+  const callbacks = useRef({});
+
+  const callback = (entries) => {
+    entries?.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setObservable({
+          obs: entry,
+          observableList: observablesStore.current,
+          callbacks: callbacks.current,
+        });
+      }
+    });
+  };
+  const observer = useRef(new IntersectionObserver(callback, options));
+
+  const animation = () => {
+    window.requestAnimationFrame(() => {
+      colorize({
+        observableList: observablesStore.current,
+        initialColor,
+        fillColor,
+        hasReverse,
+      });
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", animation);
+    return () => {
+      document.removeEventListener("scroll", animation);
+    };
+  }, []);
+
+  const setObserver = (elem, callbackFn) => {
+    const elemId = elem?.id;
+
+    if (initialColor) {
+      elem.style.background = initialColor;
+    }
+
+    observer.current.observe(elem);
+
+    if (elemId && callbackFn) {
+      callbacks.current[elemId] = callbackFn;
+    }
+  };
+
+  return <div>{handleObserve ? handleObserve(setObserver) : null}</div>;
+};
+
+export default Milestone;
